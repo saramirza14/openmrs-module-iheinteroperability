@@ -1,0 +1,4 @@
+openmrs-module-IHEInteroperability
+==================================
+
+Health Information Exchanges (HIEs) are starting to take off the word over. In particular the OpenHIE (ohie.org) project is looking at proving the infrastructure for low to middle income countries (LMICs) to exchange a patient's demographic and clinical information.   OpenMRS is deployed in many LMICs and thus it would be helpful to have some modules available to easily connect OpenMRS to an HIE.   The Patient Administration Management (PAM) profile developed by Integrating the Health Enterprise (IHE) provides a standards-based mechanism to manage patient information between systems. In this project the PAM profile will be used to send information about each patient that is registered in the OpenMRS system to HIE infrastructure. This will allow OpenMRS to integrate into an HIE more easily.
