@@ -48,6 +48,11 @@
 		<file>messages_es.properties</file>
 	</messages>
 	<!-- /Internationalization -->
+	
+	<advice>
+<point>org.openmrs.api.PatientService</point>
+<class>org.openmrs.module.IHEInteroperability.api.impl.IHEInteroperabilityServiceImpl</class>
+</advice>
 
 </module>
 

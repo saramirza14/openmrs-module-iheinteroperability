@@ -18,11 +18,18 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.IHEInteroperability.api.IHEInteroperabilityService;
 import org.openmrs.module.IHEInteroperability.api.db.IHEInteroperabilityDAO;
+import org.springframework.aop.AfterReturningAdvice;
+import java.lang.reflect.Method;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openmrs.Patient;
+import org.springframework.aop.AfterReturningAdvice;
+ 
 /**
  * It is a default implementation of {@link IHEInteroperabilityService}.
  */
-public class IHEInteroperabilityServiceImpl extends BaseOpenmrsService implements IHEInteroperabilityService {
+public class IHEInteroperabilityServiceImpl extends BaseOpenmrsService implements IHEInteroperabilityService, AfterReturningAdvice {
 	
 	protected final Log log = LogFactory.getLog(this.getClass());
 	
@@ -41,4 +48,16 @@ public class IHEInteroperabilityServiceImpl extends BaseOpenmrsService implement
     public IHEInteroperabilityDAO getDao() {
 	    return dao;
     }
+
+	@Override
+	public void afterReturning(Object arg0, Method arg1, Object[] arg2,
+			Object arg3) throws Throwable {
+		// TODO Auto-generated method stub
+		if (arg1.getName().equals("savePatient")){
+			Patient patientObj = new Patient();
+			patientObj = (Patient)arg0;
+			System.out.println("Called From Service" + patientObj.getFamilyName() + patientObj.getGender());
+		}
+
+	}
 }

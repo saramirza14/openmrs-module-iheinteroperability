@@ -3,6 +3,6 @@
 
 <%@ include file="template/localHeader.jsp"%>
 
-<p>Hello ${user.systemId}!</p>
+<input type="checkbox" name="pam" value="pam">Enable PAM 
 
 <%@ include file="/WEB-INF/template/footer.jsp"%>
