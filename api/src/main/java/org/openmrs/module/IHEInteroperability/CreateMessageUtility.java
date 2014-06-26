@@ -1,5 +1,8 @@
 package org.openmrs.module.IHEInteroperability;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.Set;
 
 import org.openmrs.Patient;
@@ -17,21 +20,26 @@ public class CreateMessageUtility {
 public String createHL7Message(Patient patient) throws IOException, HL7Exception {
 		
 	  ADT_A05 adt = new ADT_A05();
-      
+	  SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.ENGLISH);
       // Populate the MSH Segment
       MSH mshSegment = adt.getMSH();
       mshSegment.getFieldSeparator().setValue("|");
       mshSegment.getEncodingCharacters().setValue("^~\\&");
       mshSegment.getSendingApplication().getNamespaceID().setValue("TestSendingSystem");
+      mshSegment.getReceivingApplication().getNamespaceID().setValue("PAMSimulator");
+      mshSegment.getProcessingID().getProcessingID().setValue("P");
       mshSegment.getSequenceNumber().setValue("123");
       mshSegment.getMessageType().getTriggerEvent().setValue("A05");
       mshSegment.getMessageType().getMessageStructure().setValue("ADT A05");
+      mshSegment.getVersionID().getVersionID().setValue("2.5.1");
+      mshSegment.getMessageControlID().setValue(sdf.format(Calendar.getInstance().getTime()));
       
       // Populate the PID Segment
       PID pid = adt.getPID(); 
       pid.getPatientName(0).getFamilyName().getSurname().setValue(patient.getFamilyName());
       pid.getPatientName(0).getGivenName().setValue(patient.getGivenName());
-      pid.getDateTimeOfBirth().getTime().setValue(patient.getBirthdate().toString());
+      pid.getPatientID().getIDNumber().setValue(patient.getPatientId().toString());
+     // pid.getDateTimeOfBirth().getTime().setValue(patient.getBirthdate().toString());
       
       if(patient.getAttribute(1) != null)
     	  pid.getRace(0).getText().setValue(patient.getAttribute(1).toString());
