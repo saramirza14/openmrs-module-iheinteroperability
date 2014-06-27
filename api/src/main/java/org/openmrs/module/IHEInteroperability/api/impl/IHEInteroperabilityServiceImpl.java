@@ -17,6 +17,7 @@ import org.openmrs.api.impl.BaseOpenmrsService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.IHEInteroperability.CreateMessageUtility;
+import org.openmrs.module.IHEInteroperability.SendMessageUtility;
 import org.openmrs.module.IHEInteroperability.api.IHEInteroperabilityService;
 import org.openmrs.module.IHEInteroperability.api.db.IHEInteroperabilityDAO;
 import org.springframework.aop.AfterReturningAdvice;
@@ -63,6 +64,10 @@ public class IHEInteroperabilityServiceImpl extends BaseOpenmrsService implement
 			CreateMessageUtility obj = new CreateMessageUtility();
 			String HL7Message = obj.createHL7Message(patientObj);
 			System.out.println("HL7 message is  " + HL7Message);
+			
+			SendMessageUtility sendMessageObj = new SendMessageUtility();
+			String response = sendMessageObj.sendMessageToSimulator(HL7Message);
+			System.out.println("Response is" + response);
 		}
 
 	}

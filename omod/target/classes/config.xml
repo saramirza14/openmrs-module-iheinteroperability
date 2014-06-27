@@ -6,31 +6,35 @@
 	<id>IHEInteroperability</id>
 	<name>IHEInteroperability Module</name>
 	<version>1.0-SNAPSHOT</version>
-	<package>org.openmrs.module.IHEInteroperability</package>
+	<package>org.openmrs.module.IHEInteroperability
+	</package>
 	<author>Sara Fatima</author>
 	<description>
 		Allow OpenMRS to integrate with a HIE.
 	</description>
-	<updateURL>https://modules.openmrs.org/modules/download/IHEInteroperability/update.rdf</updateURL>
+	<updateURL>https://modules.openmrs.org/modules/download/IHEInteroperability/update.rdf
+	</updateURL>
 	<require_version>1.8.0</require_version>
 	<!-- / Module Properties -->
 
-	
+
 	<!-- Module Activator -->
-	<activator>org.openmrs.module.IHEInteroperability.IHEInteroperabilityActivator</activator>
-	
-	
+	<activator>org.openmrs.module.IHEInteroperability.IHEInteroperabilityActivator
+	</activator>
+
+
 	<!-- Adds link to admin page -->
 	<extension>
 		<point>org.openmrs.admin.list</point>
-		<class>org.openmrs.module.IHEInteroperability.extension.html.AdminList</class>
+		<class>org.openmrs.module.IHEInteroperability.extension.html.AdminList
+		</class>
 	</extension>
-	
+
 	<!-- Maps hibernate file's, if present -->
 	<mappingFiles>
-				
+
 		PatientProfile.hbm.xml
-				
+
 	</mappingFiles>
 
 	<!-- Internationalization -->
@@ -48,11 +52,12 @@
 		<file>messages_es.properties</file>
 	</messages>
 	<!-- /Internationalization -->
-	
+
 	<advice>
-<point>org.openmrs.api.PatientService</point>
-<class>org.openmrs.module.IHEInteroperability.api.impl.IHEInteroperabilityServiceImpl</class>
-</advice>
+		<point>org.openmrs.api.PatientService</point>
+		<class>org.openmrs.module.IHEInteroperability.api.impl.IHEInteroperabilityServiceImpl
+		</class>
+	</advice>
 
 </module>
 
