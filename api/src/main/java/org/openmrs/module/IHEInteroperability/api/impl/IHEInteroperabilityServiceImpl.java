@@ -62,12 +62,19 @@ public class IHEInteroperabilityServiceImpl extends BaseOpenmrsService implement
 			
 			//Create HL7 message
 			CreateMessageUtility obj = new CreateMessageUtility();
-			String HL7Message = obj.createHL7Message(patientObj);
-			System.out.println("HL7 message is  " + HL7Message);
+			String PAMHL7Message = obj.createHL7Message(patientObj);
+			System.out.println("PAM HL7 message is  " + PAMHL7Message);
 			
 			SendMessageUtility sendMessageObj = new SendMessageUtility();
-			String response = sendMessageObj.sendMessageToSimulator(HL7Message);
-			System.out.println("Response is" + response);
+			String response = sendMessageObj.sendMessageToSimulator(PAMHL7Message,10010,"131.254.209.20");
+			System.out.println("PAM Response is" + response);
+			
+			
+			String PIXHL7Message = obj.createPIXHL7Message(patientObj);
+			System.out.println("PIX HL7 message is  " + PIXHL7Message);
+			
+			String responsePIX = sendMessageObj.sendMessageToSimulator(PIXHL7Message,10017,"131.254.209.20");
+			System.out.println("PIX Response is" + responsePIX);
 		}
 
 	}

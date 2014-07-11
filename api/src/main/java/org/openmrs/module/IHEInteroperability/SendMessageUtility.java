@@ -19,13 +19,12 @@ import ca.uhn.hl7v2.parser.PipeParser;
 
 public class SendMessageUtility {
 	
-	public String sendMessageToSimulator(String hl7Message) throws EncodingNotSupportedException, HL7Exception, LLPException,
+	public String sendMessageToSimulator(String hl7Message, int port, String host) throws EncodingNotSupportedException, HL7Exception, LLPException,
     IOException, RuntimeException, DataTypeException{
 		  /*
          * Create a server to listen for incoming messages
          */
-		 int port = 10010; // The port to listen on
-	        LowerLayerProtocol llp = LowerLayerProtocol.makeLLP(); // The transport protocol
+		    LowerLayerProtocol llp = LowerLayerProtocol.makeLLP(); // The transport protocol
 	        PipeParser parser = new PipeParser(); // The message parser
 	        SimpleServer server = new SimpleServer(port, llp, parser);
 
@@ -48,7 +47,7 @@ public class SendMessageUtility {
 
 	        // A connection object represents a socket attached to an HL7 server
 	        Connection connection = connectionHub
-	                .attach("131.254.209.20", port, new PipeParser(), MinLowerLayerProtocol.class);
+	                .attach(host, port, new PipeParser(), MinLowerLayerProtocol.class);
 
 	        // The initiator is used to transmit unsolicited messages
 	        Initiator initiator = connection.getInitiator();
