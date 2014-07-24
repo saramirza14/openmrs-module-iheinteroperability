@@ -75,6 +75,8 @@ public class IHEInteroperabilityServiceImpl extends BaseOpenmrsService implement
 			
 			String responsePIX = sendMessageObj.sendMessageToSimulator(PIXHL7Message,10017,"131.254.209.20");
 			System.out.println("PIX Response is" + responsePIX);
+			
+			sendMessageObj.hl7OverHttp(patientObj);
 		}
 
 	}

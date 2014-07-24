@@ -16,6 +16,7 @@ import ca.uhn.hl7v2.model.v25.segment.EVN;
 import ca.uhn.hl7v2.model.v25.segment.MSH;
 import ca.uhn.hl7v2.model.v25.segment.PID;
 import ca.uhn.hl7v2.model.v25.segment.PV1;
+import ca.uhn.hl7v2.parser.DefaultXMLParser;
 import ca.uhn.hl7v2.parser.Parser;
 import ca.uhn.hl7v2.parser.PipeParser;
 
@@ -173,6 +174,12 @@ public class CreateMessageUtility {
 		String encodedMessage = parser.encode(adt);
 		System.out.println(encodedMessage);
 
+		
+		parser = new DefaultXMLParser();
+        String xmlMessage = parser.encode(adt);
+        System.out.println("Printing XML Encoded Message:");
+        System.out.println(xmlMessage);
+		
 		return encodedMessage;
 
 	}
