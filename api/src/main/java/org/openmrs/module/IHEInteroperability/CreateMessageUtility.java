@@ -101,7 +101,7 @@ public class CreateMessageUtility {
 
 	}
 	
-	public String createPIXHL7Message(Patient patient) throws IOException, HL7Exception {
+	public String createPIXHL7Message(Patient patient, int flag) throws IOException, HL7Exception {
 
 		ADT_A01 adt = new ADT_A01();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.ENGLISH);
@@ -171,16 +171,21 @@ public class CreateMessageUtility {
 		}
 		// Now, let's encode the message and look at the output
 		Parser parser = new PipeParser();
+		if(flag==0){
 		String encodedMessage = parser.encode(adt);
 		System.out.println(encodedMessage);
-
-		
+		return encodedMessage;
+		}
+		else if(flag==1){
 		parser = new DefaultXMLParser();
         String xmlMessage = parser.encode(adt);
         System.out.println("Printing XML Encoded Message:");
         System.out.println(xmlMessage);
+        return xmlMessage;
+		}
+		return null;
 		
-		return encodedMessage;
+	
 
 	}
 

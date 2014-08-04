@@ -18,6 +18,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.IHEInteroperability.CreateMessageUtility;
 import org.openmrs.module.IHEInteroperability.SendMessageUtility;
+import org.openmrs.module.IHEInteroperability.SendingToOpenHIE;
 import org.openmrs.module.IHEInteroperability.api.IHEInteroperabilityService;
 import org.openmrs.module.IHEInteroperability.api.db.IHEInteroperabilityDAO;
 import org.springframework.aop.AfterReturningAdvice;
@@ -53,7 +54,7 @@ public class IHEInteroperabilityServiceImpl extends BaseOpenmrsService implement
 
 	@Override
 	public void afterReturning(Object arg0, Method arg1, Object[] arg2,
-			Object arg3) throws Throwable {
+			Object arg3) throws Throwable, Exception {
 		// TODO Auto-generated method stub
 		if (arg1.getName().equals("savePatient")){
 			Patient patientObj = new Patient();
@@ -66,17 +67,22 @@ public class IHEInteroperabilityServiceImpl extends BaseOpenmrsService implement
 			System.out.println("PAM HL7 message is  " + PAMHL7Message);
 			
 			SendMessageUtility sendMessageObj = new SendMessageUtility();
-			String response = sendMessageObj.sendMessageToSimulator(PAMHL7Message,10010,"131.254.209.20");
+			String response = sendMessageObj.sendMessageToSimulator(PAMHL7Message,10010,"94.23.247.108");
 			System.out.println("PAM Response is" + response);
 			
-			
-			String PIXHL7Message = obj.createPIXHL7Message(patientObj);
+			//0 specifies sending to simulator 
+			//1 to openhie
+			String PIXHL7Message = obj.createPIXHL7Message(patientObj,0);
 			System.out.println("PIX HL7 message is  " + PIXHL7Message);
 			
-			String responsePIX = sendMessageObj.sendMessageToSimulator(PIXHL7Message,10017,"131.254.209.20");
+			String responsePIX = sendMessageObj.sendMessageToSimulator(PIXHL7Message,10017,"94.23.247.108");
 			System.out.println("PIX Response is" + responsePIX);
 			
-			sendMessageObj.hl7OverHttp(patientObj);
+			
+			String xmlMessage = obj.createPIXHL7Message(patientObj, 1);
+			SendingToOpenHIE hieObj = new SendingToOpenHIE();
+			hieObj.simpleHttpMessage(xmlMessage);
+			
 		}
 
 	}

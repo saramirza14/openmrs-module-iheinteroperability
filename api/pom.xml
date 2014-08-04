@@ -53,6 +53,12 @@
 			<scope>test</scope>
 		</dependency>
 
+	<dependency>
+  <groupId>org.apache.httpcomponents</groupId>
+  <artifactId>httpclient</artifactId>
+  <version>4.3.5</version>
+  <scope>compile</scope>
+</dependency>
 		<!-- End OpenMRS core -->
 		<dependency>
    			<groupId>ca.uhn.hapi</groupId>
@@ -73,7 +79,7 @@
       			</exclusion>
 			</exclusions>
    			</dependency>
-			   			
+		   			
 	</dependencies>
 
 	<build>
