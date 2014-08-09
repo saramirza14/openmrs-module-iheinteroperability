@@ -17,24 +17,22 @@ import org.apache.http.message.BasicNameValuePair;
 public class SendingToOpenHIE {
 	public void simpleHttpMessage(String pixXmlMessage) throws Exception{
 
-		String url = "iol.sandbox.ohie.org";
-		String USER_AGENT = "/ws/rest/v1/patients/";
+		String url = "http://iol.demo.ohie.org:5001/ws/rest/v1/patients/";
+		
 
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(url);
 
 		System.out.println("HttpPost object created");
 
-		// add header
-		post.setHeader("User-Agent", USER_AGENT);
-
+		
 		try{
 			List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
 
 			urlParameters.add(new BasicNameValuePair("username", "admin"));
-			urlParameters.add(new BasicNameValuePair("password", "admin"));
+			urlParameters.add(new BasicNameValuePair("password", "rhea-password"));
 			urlParameters.add(new BasicNameValuePair("body", pixXmlMessage));
-			urlParameters.add(new BasicNameValuePair("port", "5001"));
+			//urlParameters.add(new BasicNameValuePair("port", "5001"));
 			//urlParameters.add(new BasicNameValuePair("num", "12345"));
 
 			post.setEntity(new UrlEncodedFormEntity(urlParameters));
