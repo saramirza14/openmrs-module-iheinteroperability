@@ -13,6 +13,7 @@
  */
 package org.openmrs.module.IHEInteroperability.api.impl;
 
+import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -61,28 +62,43 @@ public class IHEInteroperabilityServiceImpl extends BaseOpenmrsService implement
 			patientObj = (Patient)arg0;
 			System.out.println("Called From Service" + patientObj.getFamilyName() + patientObj.getGender());
 			
+			String pamGlobalProperties = Context.getAdministrationService().getGlobalProperty("IHEInteroperability.pam");
+			String pixGlobalProperties = Context.getAdministrationService().getGlobalProperty("IHEInteroperability.pix");
+			
+			String pixSimulatorPort = Context.getAdministrationService().getGlobalProperty("IHEInteroperability.pix_sim_port");
+			String pamSimulatorPort = Context.getAdministrationService().getGlobalProperty("IHEInteroperability.pam_sim_port");
+			String pixSimulatorHost = Context.getAdministrationService().getGlobalProperty("IHEInteroperability.pix_sim_host");
+			String pamSimulatorHost = Context.getAdministrationService().getGlobalProperty("IHEInteroperability.pam_sim_host");
+			
+			
+			
 			//Create HL7 message
 			CreateMessageUtility obj = new CreateMessageUtility();
 			String PAMHL7Message = obj.createHL7Message(patientObj);
 			System.out.println("PAM HL7 message is  " + PAMHL7Message);
 			
 			SendMessageUtility sendMessageObj = new SendMessageUtility();
-			String response = sendMessageObj.sendMessageToSimulator(PAMHL7Message,10010,"94.23.247.108");
-			System.out.println("PAM Response is" + response);
 			
+			if(pamGlobalProperties.equals("true")){
+			String response = sendMessageObj.sendMessageToSimulator(PAMHL7Message,Integer.parseInt(pamSimulatorPort), pamSimulatorHost);
+			System.out.println("PAM Response is" + response);
+			}
 			//0 specifies sending to simulator 
 			//1 to openhie
-			String PIXHL7Message = obj.createPIXHL7Message(patientObj,0);
+			
+			if(pixGlobalProperties.equals("true")){
+				String PIXHL7Message = obj.createPIXHL7Message(patientObj,0);
+			
 			System.out.println("PIX HL7 message is  " + PIXHL7Message);
 			
-			String responsePIX = sendMessageObj.sendMessageToSimulator(PIXHL7Message,10017,"94.23.247.108");
+			String responsePIX = sendMessageObj.sendMessageToSimulator(PIXHL7Message,Integer.parseInt(pixSimulatorPort),pixSimulatorHost);
 			System.out.println("PIX Response is" + responsePIX);
 			
 			
 			String xmlMessage = obj.createPIXHL7Message(patientObj, 1);
 			SendingToOpenHIE hieObj = new SendingToOpenHIE();
 			hieObj.simpleHttpMessage(xmlMessage);
-			
+			}
 		}
 
 	}

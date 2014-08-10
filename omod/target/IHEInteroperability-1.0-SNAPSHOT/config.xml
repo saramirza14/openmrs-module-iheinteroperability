@@ -59,5 +59,45 @@
 		</class>
 	</advice>
 
+	<globalProperty>
+		<property>IHEInteroperability.pam</property>
+		<defaultValue>true</defaultValue>
+		<description>This property sets the value true or false to either send a pam message or not.
+		</description>
+	</globalProperty>
+	
+	<globalProperty>
+		<property>IHEInteroperability.pix</property>
+		<defaultValue>true</defaultValue>
+		<description>This property sets the value true or false to either send a pix message or not.
+		</description>
+	</globalProperty>
+	
+	<globalProperty>
+		<property>IHEInteroperability.pix_sim_port</property>
+		<defaultValue>10017</defaultValue>
+		<description>This property sets the port number of the PIX simulator, where the PIX message is intended to be sent
+		</description>
+	</globalProperty>
+	<globalProperty>
+		<property>IHEInteroperability.pam_sim_port</property>
+		<defaultValue>10010</defaultValue>
+		<description>This property sets the port number of the PAM simulator, where the PAM message is intended to be sent
+		</description>
+	</globalProperty>
+	
+	<globalProperty>
+		<property>IHEInteroperability.pix_sim_host</property>
+		<defaultValue>94.23.247.108</defaultValue>
+		<description>This property sets the host path, where the PIX message is intended to be sent.
+		</description>
+	</globalProperty>
+	<globalProperty>
+		<property>IHEInteroperability.pam_sim_host</property>
+		<defaultValue>94.23.247.108</defaultValue>
+		<description>This property sets the host path, where the PAM message is intended to be sent.
+		</description>
+	</globalProperty>
+
 </module>
 
